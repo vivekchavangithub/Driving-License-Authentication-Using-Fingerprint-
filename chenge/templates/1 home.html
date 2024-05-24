@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver's License Authentication</title>
+<style>
+    /* Reset default browser styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set background color for body */
+    body {
+      background-color: #C9D7E1;
+    }
+
+    /* Style for header */
+    header {
+      background-color: #36454f;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      text-align: center;
+    }
+
+    /* Style for navigation */
+    nav {
+      background-color: #f7f7fa;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #020202;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    nav a:hover {
+       background-color: #2f7a87;
+    }
+
+    #services {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 20px auto; /* Center the section horizontally */
+        }
+
+        /* Style for card */
+        .card {
+            width: calc(50% - 40px); /* Adjust the width based on your preference */
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #FFF;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            text-align: center;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+
+        /* Style for form input and button */
+        .button-container {
+            text-align: center; /* Center the button */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+<!--    /* Style for card */-->
+<!--    .card {-->
+<!--      width: calc(50% - 20px); /* Adjust the width based on your preference */-->
+<!--      margin: 20px;-->
+<!--      padding: 20px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 5px;-->
+<!--      background-color: #FFF;-->
+<!--      display: inline-block; /* Ensures the cards are displayed side by side */-->
+<!--    }-->
+
+<!--    .card h2 {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 20px;-->
+<!--    }-->
+
+<!--    .card p {-->
+<!--      text-align: center;-->
+<!--      margin-bottom: 15px;-->
+<!--      margin-top : 20px;-->
+<!--    }-->
+
+<!--    /* Style for form input and button */-->
+<!--    .button-container {-->
+<!--      text-align: center; /* Center the button */-->
+<!--    }-->
+
+<!--    button {-->
+<!--      padding: 10px 20px;-->
+<!--      background-color: #007bff;-->
+<!--      color: #fff;-->
+<!--      border: none;-->
+<!--      border-radius: 5px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    button:hover {-->
+<!--      background-color: #0056b3;-->
+<!--    }-->
+
+
+    /* Style for output message */
+    #output-message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .alert-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .alert-danger {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+</style>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center;">Driver's License Authentication Using Fingerprint</h1>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/new">New Registration</a>
+        <a href="/old">Authentication</a>
+        <a href="/acts_and_rules">Acts and Rules</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="/kb">Login</a>
+        <a href="#signup" class="signup"></a>
+    </nav>
+
+
+    <main>
+        <section id="services">
+
+            <div class="card">
+                <h2>Enroll New Driving License Data</h2>
+                <div class="button-container">
+                    <button class="click-here-button" id="get" name="click" type="button" onclick="new()">Click Here</button>
+                    <script>
+                        document.getElementById('get').onclick = function(){
+                            window.location.href = "{{ url_for('new') }}";
+                            };
+                    </script>
+                </div>
+                <p>Apply for a new driving license and enroll your details.</p>
+            </div>
+
+
+            <div class="card" onclick="getLicenseData()">
+                <h2>Get Driving License Data</h2>
+                <div class="button-container">
+                    <button class="click-here-button" id="put" name="click" type="button" onclick="old()">Click Here</button>
+                    <script>
+                        document.getElementById('put').onclick = function(){
+                            window.location.href = "{{ url_for('old') }}";
+                            };
+                    </script>
+                </div>
+                <p>Retrieve information about your existing driving license.</p>
+            </div>
+        </section>
+    </main>
+
+
+</body>
+</html>

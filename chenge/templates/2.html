@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving License Registration Form</title>
+  <style>
+   /* Reset default browser styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set background color for body */
+    body {
+      background-color: #C9D7E1;
+    }
+
+    /* Style for header */
+    header {
+      background-color: #36454f;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      text-align: center;
+    }
+
+    /* Style for navigation */
+    nav {
+      background-color: #f7f7fa;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #020202;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    nav a:hover {
+       background-color: #2f7a87;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: grid;
+        grid-gap: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .upload-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .upload-icon {
+        margin-bottom: 10px;
+    }
+
+    .upload-icon img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .upload-icon input[type="file"] {
+        display: none;
+    }
+
+</style>
+</head>
+<body>
+  <header>
+    <h1 style="text-align: center;">Driver's License Authentication Using Fingerprint</h1>
+</header>
+<nav>
+    <a href="/">Home</a>
+    <a href="/new">New Registration</a>
+    <a href="/old">Authentication</a>
+    <a href="/acts_and_rules">Acts and Rules</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="/kb">Login</a>
+    <a href="#signup" class="signup"></a>
+</nav>
+
+  <div class="container">
+    <h1>Driving License Registration Form</h1>
+    <form action="{{ url_for('login') }}" method="post" enctype="multipart/form-data">
+
+      <label for="full-name">Full Name:</label>
+      <input type="text" id="full-name" name="full-name" required>
+      
+      <label for="relativeName">Relative Name:</label>
+      <input type="text" id="relativeName" name="relativeName" required>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+
+      <script>
+        // Calculate the date 18 years ago from today
+        var maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() - 18);
+
+        // Format the date as YYYY-MM-DD
+        var maxDateString = maxDate.toISOString().split('T')[0];
+
+        // Set the max attribute of the date input to 18 years ago
+        document.getElementById("dob").setAttribute("max", maxDateString);
+
+      </script>
+
+      <label for="dl-number">DL Number:</label>
+      <input type="text" id="dl-number" name="dl-number" required>
+
+      <label for="valid-till">DOI :</label>
+      <input type="date" id="doi" name="doi" required>
+
+      <label for="valid-till">Valid Till:</label>
+      <input type="date" id="valid-till" name="valid-till" required>
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="4" required></textarea>
+
+      <label for="pin-code">Pin Code:</label>
+      <input type="text" id="pin-code" name="pin-code" pattern="[0-9]{6}" required>
+
+    <div class="upload-area">
+      <div class="upload-icon">
+        <img id="uploadedPhoto" src="photo-placeholder.png" alt="Uploaded Photo">
+        <input type="file" id="profilePic" name="profilePic" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+        <label for="profilePic" id="uploadLabel">Upload Your Photo</label>
+      </div>
+      <p>Click or Drag & Drop to upload</p>
+    </div>
+    <script>
+      function handleFileUpload(event) {
+        const fileInput = event.target;
+        const uploadedPhoto = document.getElementById('uploadedPhoto');
+        const uploadLabel = document.getElementById('uploadLabel');
+
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            uploadedPhoto.src = e.target.result;
+            // Hide the upload label after image upload
+            uploadLabel.style.display = 'none';
+          }
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Function to send image to server (Example)
+      function sendToServer(imageData) {
+        // This is just an example function to send data to the server.
+        // You'll need to replace this with your actual backend code.
+        fetch('http://example.com/upload', {
+          method: 'POST',
+          body: JSON.stringify({ image: imageData }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log('Image uploaded successfully!');
+          } else {
+            console.error('Error uploading image:', response.statusText);
+          }
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
+      }
+
+    </script>
+
+      <div class="button-container">
+        <button type="submit" onclick="redirectToPage()">SUBMIT</button>
+      </div>
+
+      
+      <script>
+        function openFileUploader(inputId) {
+          var input = document.getElementById(inputId);
+          if (input) {
+            input.click();
+          }
+        }
+
+      </script>
+      <script>
+          function startCapture() {
+              var name = document.getElementById('dl-number').value;
+              fetch('/start_capture', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: 'name=' + name,
+              })
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('output-message').innerHTML = '<div class="alert alert-success" role="alert">Image captured and saved for ' + data.name + ' as ' + data.filename + '</div>';
+              })
+              .catch((error) => {
+                  console.error('Error:', error);
+              });
+          }
+      </script>
+
+    </form>
+
+  </div>
+</body>
+</html>

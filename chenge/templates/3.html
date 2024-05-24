@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Form</title>
+<style>
+    /* Reset default browser styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set background color for body */
+    body {
+      background-color: #C9D7E1;
+    }
+
+    /* Style for header */
+    header {
+      background-color: #36454f;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      text-align: center;
+    }
+
+    /* Style for navigation */
+    nav {
+      background-color: #f7f7fa;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #020202;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    nav a:hover {
+       background-color: #2f7a87;
+    }
+
+    /* Style for card */
+    .card {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #FFF;
+    }
+
+    .card h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Style for form input and button */
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Style for output message */
+    #output-message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .alert-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .alert-danger {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+</style>
+</head>
+<body>
+  <header>
+    <h1 style="text-align: center;">Driver's License Authentication Using Fingerprint</h1>
+</header>
+<nav>
+    <a href="/">Home</a>
+    <a href="/new">New Registration</a>
+    <a href="/old">Authentication</a>
+    <a href="/acts_and_rules">Acts and Rules</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="/kb">Login</a>
+    <a href="#signup" class="signup"></a>
+</nav>
+
+  <div class="card">
+    <h1>Complete Your Profile</h1>
+    <form action="start_capture" method="post" enctype="multipart/form-data">
+
+      <input id="input-number" type="number" placeholder="Enter your number">
+
+      <div class="button-container">
+          <button type="button" onclick="startCapture()">Start Captured</button>
+      </div>
+
+      <div id="output-message" class="mt-3"></div>
+
+    </form>
+  </div>
+
+<script>
+      function startCapture() {
+            var number = document.getElementById('input-number').value;
+            fetch('/start_capture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'number=' + number,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output-message').innerHTML = '<div class="alert alert-success" role="alert">Image captured and saved for number ' + data.number + ' as ' + data.filename + '</div>';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+</script>
+
+
+</body>
+</html>

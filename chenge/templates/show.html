@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Form</title>
+
+<style>
+    <!--    new css-->
+
+    /* Reset default browser styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set background color for body */
+    body {
+      background-color: #C9D7E1;
+    }
+
+    /* Style for header */
+    header {
+      background-color: #36454f;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      text-align: center;
+    }
+
+    /* Style for navigation */
+    nav {
+      background-color: #f7f7fa;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #020202;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    nav a:hover {
+       background-color: #2f7a87;
+    }
+
+    /* Style for driving license container */
+    .driving-license {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+
+    /* Style for header */
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    <!--  text-align : center;-->
+    }
+
+    .header img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    /* Style for info rows */
+    .info .row {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .row .label {
+      flex: 1;
+      font-weight: bold;
+    }
+
+    .row .value {
+      flex: 2;
+    }
+</style>
+
+
+</head>
+<body>
+  <header>
+    <h1 style="text-align: center;">Driver's License Authentication Using Fingerprint</h1>
+</header>
+<nav>
+    <a href="/">Home</a>
+    <a href="/new">New Registration</a>
+    <a href="/old">Authentication</a>
+    <a href="#rule">Acts and Rules</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#login">Login</a>
+    <a href="#signup" class="signup"></a>
+</nav>
+    {% if data %}
+        <div class="driving-license">
+            <div class="header">
+              <img src="{{ url_for('static', filename=data.photo) }}" alt="License Photo">
+              <h1 style="text-align: center;">Driving License Details</h1>
+            </div>
+            <div class="info">
+              <div class="row">
+                <div class="label"><strong>Name:</strong></div>
+                <div class="value"><span id="name">{{data.name }}</span></div>
+              </div>
+              <div class="row">
+                <div class="label"><strong>Date of Birth:</strong></div>
+                <div class="value"><span id="dob">{{ data.dob }}</span></div>
+              </div>
+              <div class="row">
+                <div class="label">License No: </div>
+                <div class="value"><span id="dlno">MH{{ data.dlno }}</span></div>
+              </div>
+
+              <div class="row">
+                <div class="label">Expiration Date: </div>
+                <div class="value"><span id="validtill">{{ data.validtill }}</span></div>
+              </div>
+              <div class="row">
+                <div class="label">Date of Issue: </div>
+                <div class="value"><span id="doi">{{ data.doi }}</span></div>
+              </div>
+              <div class="row">
+                <div class="label">Relative Name:</div>
+                <div class="value"><span id="fname">{{ data.fname }}</span></div>
+              </div>
+
+              <div class="row">
+                <div class="label">Address:</div>
+                <div class="value"><span id="address">{{ data.address }}</span></div>
+              </div>
+              <div class="row">
+                <div class="label">Pin Code:</div>
+                <div class="value"><span id="pin">{{ data.pin }}</span></div>
+              </div>
+
+            </div>
+        </div>
+    {% else %}
+        <div class="driving-license">
+             <p style="text-align: center;">No result found for the given license ID.</p>
+        </div>
+    {% endif %}
+</body>
+</html>
