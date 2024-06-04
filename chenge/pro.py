@@ -309,9 +309,9 @@ def acts_and_rules():
     return send_file(pdf_path, as_attachment=True)
 
 # main function for exicution
-if __name__ == "__main__":
-    app.run(debug=True)
-    db.create_all()
+# if __name__ == "__main__":
+#     app.run(debug=True)
+#     db.create_all()
 
 
 
